@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using ZbW.Testing.Dms.Client.Model;
+using KSSG.Toolbox.Model;
 
-namespace ZbW.Testing.Dms.Client.Services.Impl
+namespace KSSG.Toolbox.Services.Implementierung
 {
   public class DirectoryService : IDirectoryService
   {
@@ -67,4 +64,6 @@ namespace ZbW.Testing.Dms.Client.Services.Impl
       }
     }
   }
+
+  
 }

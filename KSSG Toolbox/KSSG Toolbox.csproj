@@ -1,19 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86_64.v8-xfa.props" Condition="Exists('..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86_64.v8-xfa.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{ACFA4B73-5A97-49E0-A129-0577AD077262}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>KSSG_Toolbox</RootNamespace>
-    <AssemblyName>KSSG Toolbox</AssemblyName>
+    <RootNamespace>KSSG.Toolbox</RootNamespace>
+    <AssemblyName>KSSG.Toolbox</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,8 +38,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PdfiumViewer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,9 +62,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Services\IFileOp.cs" />
-    <Compile Include="Services\IPrinter.cs" />
-    <Compile Include="Services\IWatchDog.cs" />
+    <Compile Include="Model\IMetadataItem.cs" />
+    <Compile Include="Services\IDirectoryService.cs" />
+    <Compile Include="Services\Implementierung\DirectoryService.cs" />
+    <Compile Include="Services\Implementierung\FileWatcher.cs" />
+    <Compile Include="Services\Implementierung\PrintServices.cs" />
+    <Compile Include="Services\Implementierung\XmlService.cs" />
+    <Compile Include="Services\IPrintServices.cs" />
+    <Compile Include="Services\IFileWatcher.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -89,6 +101,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -98,10 +111,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
-    <Folder Include="Services\Implementierung\" />
+    <Folder Include="Model\Implementierung\" />
     <Folder Include="ViewModel\" />
     <Folder Include="View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Verwenden Sie die Wiederherstellung von NuGet-Paketen, um die fehlenden Dateien herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86_64.v8-xfa.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86_64.v8-xfa.props'))" />
+  </Target>
 </Project>

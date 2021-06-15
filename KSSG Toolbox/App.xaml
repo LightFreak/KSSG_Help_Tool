@@ -1,7 +1,6 @@
-﻿<Application x:Class="KSSG_Toolbox.App"
+﻿<Application x:Class="KSSG.Toolbox.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:KSSG_Toolbox"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
